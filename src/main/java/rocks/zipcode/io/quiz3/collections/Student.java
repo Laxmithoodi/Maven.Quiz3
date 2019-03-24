@@ -5,23 +5,22 @@ import rocks.zipcode.io.quiz3.objectorientation.enums.LabStatus;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author leon on 10/12/2018.
  */
 public class Student {
 
-    private String labName;
 
-    private LabStatus labStatus;
     private Map<Lab, LabStatus> student;
 
-    Lab lab = new Lab();
+
 
 
     public Student() {
 
-       this.student = new HashMap<>();
+       this.student= new TreeMap<>();
     }
 
     public Student(Map<Lab, LabStatus> map) {
@@ -33,48 +32,58 @@ public class Student {
 
     public Lab getLab(String labName) {
 
-        lab.getName();
+        for(Lab lab: student.keySet()){
+            if(labName.equals(lab.getName())){
+                return lab;
+            }
+        }
 
-        this.labName = labName;
-
-        return lab;
+        return null;
     }
 
     public void setLabStatus(String labName, LabStatus labStatus) {
-        this.labName = labName;
+        Lab lab = getLab(labName);
+        if(lab==null){
+            throw new UnsupportedOperationException();
+        }
+        student.put(lab, labStatus);
 
-
-        this.labStatus = LabStatus.INCOMPLETE;
-        this.labStatus=  LabStatus.PENDING;
 
     }
 
 
     public void forkLab(Lab lab) {
-        this.labStatus= LabStatus.COMPLETED;
-        this.labStatus = LabStatus.INCOMPLETE;
-        this.labStatus=  LabStatus.PENDING;
+
+    student.put(lab, LabStatus.PENDING);
+   // student.put(lab, LabStatus.COMPLETED);
+
+
 
     }
 
 
 
     public LabStatus getLabStatus(String labName) {
-
-        this.labStatus= LabStatus.COMPLETED;
-        this.labStatus = LabStatus.INCOMPLETE;
-        this.labStatus=  LabStatus.PENDING;
-       return labStatus;
+        Lab lab = getLab(labName);
+        return student.get(lab);
 
 
-      //  throw new UnsupportedOperationException("Method not yet implemented");
+
+
+       // throw new UnsupportedOperationException("Method not yet implemented");
     }
 
     @Override
     public String toString() {
-        return "Student{" +
-                "labName='" + labName + '\'' +
-                ", labStatus=" + labStatus +
-                '}';
+        StringBuilder sn = new StringBuilder();
+
+        for(Map.Entry<Lab, LabStatus> entry: student.entrySet()){
+            sn.append(entry.getKey().getName());
+            sn.append(" > ");
+            sn.append(entry.getValue().toString());
+            sn.append(("\n"));
+        }
+        sn.deleteCharAt(sn.length()-1);
+        return sn.toString();
     }
 }

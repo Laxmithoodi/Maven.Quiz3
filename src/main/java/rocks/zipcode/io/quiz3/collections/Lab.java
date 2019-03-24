@@ -5,7 +5,7 @@ import rocks.zipcode.io.quiz3.objectorientation.enums.LabStatus;
 /**
  * @author leon on 10/12/2018.
  */
-public class Lab {
+public class Lab implements Comparable<Lab> {
 
 
     private String labName;
@@ -26,5 +26,8 @@ public class Lab {
     }
 
 
-
+    @Override
+    public int compareTo(Lab o) {
+        return labName.compareTo(o.labName);
+    }
 }

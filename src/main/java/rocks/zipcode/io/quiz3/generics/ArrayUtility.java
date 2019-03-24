@@ -17,35 +17,29 @@ public class ArrayUtility<SomeType> {
     }
 
     public SomeType findOddOccurringValue() {
-
-
-
+        for (SomeType type : array) {
+            if (getNumberOfOccurrences(type) % 2 == 1) {
+                return type;
+            }
+        }
         return null;
     }
 
     public SomeType findEvenOccurringValue() {
 
-        int i;
-        for (i = 0; i < array.length; i++) {
-            int count = 0;
-            for (int j = 0; j < array.length; j++) {
-                if (array[i] == array[j])
-                    count++;
+        for (SomeType type : array) {
+            if (getNumberOfOccurrences(type) % 2 == 0) {
+                return type;
             }
-            if (count % 2 != 0)
-                return array[i];
         }
-
-
         return null;
     }
 
 
-
     public Integer getNumberOfOccurrences(SomeType valueToEvaluate) {
-        int countOccurence =0;
-        for(SomeType element : array){
-            if(element.equals(valueToEvaluate)){
+        int countOccurence = 0;
+        for (SomeType element : array) {
+            if (element.equals(valueToEvaluate)) {
                 countOccurence++;
             }
         }
@@ -54,8 +48,16 @@ public class ArrayUtility<SomeType> {
     }
 
     public SomeType[] filter(Function<SomeType, Boolean> predicate) {
+        List<SomeType> list = new ArrayList<>();
+        for (SomeType type : array) {
+            if (predicate.apply(type)) {
+                list.add(type);
+            }
+        }
+        SomeType[] newArray = Arrays.copyOf(array, list.size());
 
-
-        return null;
+        return list.toArray(newArray);
     }
 }
+
+

@@ -9,43 +9,32 @@ import java.util.Set;
  */
 public class VowelUtils {
 
+    private static final Character[] VOWELS = {'A', 'E','I', 'O', 'U',
+                                             'a', 'e', 'i', 'o','u'};
+
 
     public static Boolean hasVowels(String word) {
-       // return null;
 
-        boolean hasA = false;
-        boolean hasE = false;
-        boolean hasI = false;
-        boolean hasO = false;
-        boolean hasU = false;
+        for (int i = 0; i < VOWELS.length; i++) {
+          if(word.contains(VOWELS[i].toString())){
+              return true;
+          }
 
-        for (int i = 0; i < word.length(); i++) {
-            switch (word.charAt(i)) {
-                case 'a':
-                    hasA = true;
-                    break;
-                case 'e':
-                    hasE = true;
-                    break;
-                case 'i':
-                    hasI = true;
-                    break;
-                case 'o':
-                    hasO = true;
-                    break;
-                case 'u':
-                    hasU = true;
-                    break;
-                default:
-                    continue;
-            }
-
-            if (hasA && hasE && hasI && hasO && hasU) {
-                return true;
-            }
         }
+//        for(int i=0;i <word.length();i++){
+//            if((word.charAt(i) == 'a') ||
+//                    (word.charAt(i) == 'e')  ||
+//                    (word.charAt(i) == 'i') ||
+//                    (word.charAt(i) == 'o') ||
+//                    (word.charAt(i) == 'u')) {
+//                //word.charAt(i);
+//                //System.out.println(" The String contains " + str.charAt(i));
+//                return true;
+//            }
+//        }
         return false;
     }
+
 
 
     public static Integer getIndexOfFirstVowel(String word) {
@@ -55,22 +44,20 @@ public class VowelUtils {
             if ("AEIOUaeiou".indexOf(c) != -1)
                 return word.indexOf(c);
         }
-        return -1;
+        return null;
     }
 
 
     public static Boolean startsWithVowel(String word) {
-
-        if (word.matches("^[aeiou].*")) {
-            return true;
-        }else
-            return false;
+        String vowels = "aeiouAEIOU";
+        String result = "";
+        return vowels.indexOf(Character.toLowerCase(word.charAt(0))) != -1;
 
     }
 
     public static Boolean isVowel(Character character) {
+
         return "AEIOUaeiou".indexOf(character) != -1;
 
-       // return null;
     }
 }

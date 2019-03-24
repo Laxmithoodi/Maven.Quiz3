@@ -1,53 +1,52 @@
 package rocks.zipcode.io.quiz3.fundamentals;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author leon on 09/12/2018.
  */
 public class StringUtils {
+
     public static String capitalizeNthCharacter(String str, Integer indexToCapitalize) {
 
+        String begin = str.substring(0, indexToCapitalize);
+        Character upperCase = Character.toUpperCase(str.charAt(indexToCapitalize));
+        String end = str.substring(indexToCapitalize + 1);
 
 
-
-        int index=str.indexOf("h");
-        String newInput = str.replace(str.charAt(index), Character.toUpperCase(str.charAt(index)));
-       // Character ch = str.toLowerCase().charAt(indexToCapitalize);
-
-      //  String out = Character.toUpperCase(str.charAt(indexToCapitalize)) + str.substring(1).toLowerCase();
-
-
-        return newInput;
+        return begin + upperCase + end;
     }
+
 
     public static Boolean isCharacterAtIndex(String baseString, Character characterToCheckFor, Integer indexOfString) {
-        Character ch = baseString.charAt(indexOfString);
 
-
-        return ch.equals(characterToCheckFor);
+        return baseString.charAt(indexOfString) == characterToCheckFor;
     }
+
 
     public static String[] getAllSubStrings(String string) {
 
-
-        String[] str = new String[string.length()];
-
+        Set<String> list = new HashSet<>();
 
         for (int i = 0; i < string.length(); i++) {
             for (int j = i + 1; j <= string.length(); j++) {
-               //  string.substring(i,j);
-                System.out.println(string.substring(i, j));
+                String sub = string.substring(i, j);
+                list.add(sub);
             }
         }
 
-
-        return str;
+        String[] all = new String[list.size()];
+        return list.toArray(all);
     }
 
 
 
-    public static Integer getNumberOfSubStrings(String input){
+    public static Integer getNumberOfSubStrings(String input) {
         int n = input.length();
-        int x = n * (n + 1) / 2 -1;
+        int x = n * (n + 1) / 2 - 1;
         return x;
 
 

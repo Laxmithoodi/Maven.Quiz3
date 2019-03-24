@@ -11,23 +11,28 @@ import static rocks.zipcode.io.quiz3.fundamentals.VowelUtils.isVowel;
 public class PigLatinGenerator {
     public String translate(String str) {
 
-        Pattern vowel = Pattern.compile("^([aeiou]|y[^aeiou]|xr)");
-        Pattern consone = Pattern.compile("^([^aeiou]?qu|[^aeiouy]+|y(?=[aeiou]))");
+        String[] words = str.split(" ");
+        StringBuilder builder = new StringBuilder();
 
-        String res = "";
-
-        for (String word: str.split(" ")) {
-            if (vowel.matcher(word).find())
-                res += word;
-            else {
-                Matcher z = consone.matcher(word);
-                if (z.find())
-                    res += word.substring(z.end()) + z.group();
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (VowelUtils.startsWithVowel(word)) {
+                builder.append(word + "way" + " ");
+            }else {
+                Integer vowelIndex = VowelUtils.getIndexOfFirstVowel(word);
+                if (vowelIndex == null) {
+                    builder.append(word + "ay" + " ");
+                } else {
+                    String begin = word.substring(0, vowelIndex);
+                    String end = word.substring(vowelIndex);
+                    String finalWord = end + begin + "ay";
+                    builder.append(finalWord + " ");
+                }
             }
-            res += "ay ";
         }
+        builder.deleteCharAt(builder.length() - 1);
+        return builder.toString();
 
-        return res.substring(0, res.length() - 1);
     }
 
 }
